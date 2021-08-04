@@ -1,0 +1,72 @@
+
+local modules = require('core').modules
+
+
+-- [ File Manager ] --
+
+if modules.builtins.netrw then
+  require('modules.base.netrw')
+end
+
+
+if modules.plugin.statusline then
+  require('modules.plugin.statusline')
+elseif modules.builtins.statusline then
+  require('modules.base.statusline')
+end
+
+
+-- [ User Interface ] --
+
+if modules.plugin.bufferline then
+  require('modules.plugin.bufferline')
+end
+
+if modules.plugin.dashboard then
+  vim.cmd('silent! packadd dashboard-nvim')
+  require('modules.plugin.dashboard')
+end
+
+---------------------------------------
+
+if modules.plugin.completion then
+  require('modules.plugin.compe')
+  require('modules.plugin.lspconfig')
+end
+
+----------------------------------------
+
+if modules.plugin.whichkey then
+  require('modules.plugin.whichkey')
+end
+
+if modules.plugin.fuzzy then
+  require('modules.plugin.fzf')
+  require('modules.plugin.telescope')
+end
+
+if modules.plugin.nvimtree then
+  require('modules.plugin.nvimtree')
+end
+
+----------------------------------------
+
+if modules.plugin.neorg then
+  require('modules.plugin.neorg')
+end
+
+if modules.plugin.orgmode then
+  require('modules.plugin.orgmode')
+end
+
+----------------------------------------
+
+if modules.plugin.essentials then
+  require('modules.plugin.colorizer')
+  require('modules.plugin.treesitter')
+  require('modules.plugin.todo')
+  require('modules.plugin.colorizer')
+end
+
+----------------------------------------
+
