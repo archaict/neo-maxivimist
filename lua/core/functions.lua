@@ -55,7 +55,7 @@ function PrivateConfig()
 end
 
 function ToggleNumber()
-    vim.wo.number = not vim.wo.number
+  vim.wo.number = not vim.wo.number
 end
 
 for _, plug in pairs(require'core'.disabled.plugin) do vim.g["loaded_" .. plug] = 1 end

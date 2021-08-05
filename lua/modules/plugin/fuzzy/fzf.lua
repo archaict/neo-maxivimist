@@ -10,11 +10,17 @@ local default_opts ={
 
 require'fzf-lua'.setup {
   winopts = {
+-- Default
     win_height       = 0.85,            -- window height
     win_width        = 0.80,            -- window width
     win_row          = 0.30,            -- window row position (0=top, 1=bottom)
     win_col          = 0.50,            -- window col position (0=left, 1=right)
-    -- win_border    = false,           -- window border? or borderchars?
+-- BOTTOM
+    -- win_height       = 0.30,            -- window height
+    -- win_width        = 1,            -- window width
+    -- win_row          = 1,            -- window row position (0=top, 1=bottom)
+    -- win_col          = 0,            -- window col position (0=left, 1=right)
+
     win_border       = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
     window_on_create = function()         -- nvim window options override
       vim.cmd("set winhl=Normal:Normal")  -- popup bg match normal windows
@@ -31,15 +37,42 @@ require'fzf-lua'.setup {
       'ctrl-a:toggle-all',
       'ctrl-l:clear-query',
   },
-  preview_cmd         = '',             -- 'head -n $FZF_PREVIEW_LINES',
   preview_border      = 'border',       -- border|noborder
   preview_wrap        = 'nowrap',       -- wrap|nowrap
   preview_opts        = 'nohidden',     -- hidden|nohidden
-  preview_vertical    = 'up:45%',       -- up|down:size
-  preview_horizontal  = 'right:65%',    -- right|left:size
+  preview_vertical    = 'down:45%',     -- up|down:size
+  preview_horizontal  = 'right:60%',    -- right|left:size
   preview_layout      = 'flex',         -- horizontal|vertical|flex
   flip_columns        = 120,            -- #cols to switch to horizontal on flex
-  bat_theme           = 'Coldark-Dark', -- bat preview theme (bat --list-themes)
+  -- default_previewer   = "bat",       -- override the default previewer?
+                                        -- by default auto-detect bat|cat
+  previewers = {
+    cmd = {
+      -- custom previewer, will execute:
+      -- `<cmd> <args> <filename>`
+      cmd             = "echo",
+      args            = "",
+    },
+    cat = {
+      cmd             = "cat",
+      args            = "--number",
+    },
+    bat = {
+      cmd             = "bat",
+      args            = "--style=numbers,changes --color always",
+      theme           = 'Coldark-Dark', -- bat preview theme (bat --list-themes)
+      config          = nil,            -- nil uses $BAT_CONFIG_PATH
+    },
+    head = {
+      cmd             = "head",
+      args            = nil,
+    },
+    termpix = {
+        cmd             = "termpix",
+        args            = "--width 110 --true-colour",
+        _new            = function() return require 'fzf-lua.previewer'.cmd_async end,
+    },
+  },
   -- provider setup
   files = {
     prompt            = 'Files » ',
@@ -117,7 +150,7 @@ require'fzf-lua'.setup {
     git_icons         = true,
   },
   lsp = {
-    prompt            = '❯ ',
+    prompt            = 'LSP » ',
     -- cwd               = vim.loop.cwd(),
     file_icons        = true,
     git_icons         = false,
@@ -134,10 +167,6 @@ require'fzf-lua'.setup {
   loclist = {},
   helptags = {},
   manpages = {},
-  -- optional override of file extension icon colors
-  -- available colors (terminal):
-  --    clear, bold, black, red, green, yellow
-  --    blue, magenta, cyan, grey, dark_grey, white
   file_icon_colors = {
     ["lua"]   = "blue",
   },
@@ -149,10 +178,30 @@ require'fzf-lua'.setup {
 local dirs = require'core'.directories
 --============================================================================--
 
+-- vim.fn.setenv(
+--   "FZF_DEFAULT_OPTS",
+--   "--inline-info'"
+-- )
+
+-- function fzf_projectionist()
+--   local project_dirs = dirs.project
+--   coroutine.wrap(function()
+--     local choice = require "fzf".fzf(project_dirs)
+--     if choice then
+--       require('fzf-lua').files({
+--         prompt  = 'Project » ',
+--         cwd = choice[1];
+--       })
+--       vim.cmd('chdir' .. choice[1])
+--     end
+--   end)()
+-- end
+
 function fzf_projectionist()
-  local project_dirs = dirs.project
+  local action = require "fzf.actions".action
   coroutine.wrap(function()
-    local choice = require "fzf".fzf(project_dirs)
+    local choice = require "fzf".fzf( dirs.project , '--preview="ls -la --color=auto {}"')
+
     if choice then
       require('fzf-lua').files({
         prompt  = 'Project » ',
@@ -212,18 +261,28 @@ function fzf_searchinproject()
   })
 end
 
-function fzf_wallpaper() -- Poor Man Wallpaper Changer (with preview)
-  local fzf = require("fzf").fzf
-  local action = require "fzf.actions".action
-  local img_dir = dirs.pictures
-  coroutine.wrap(function()
-    local choice = fzf('fd . '.. img_dir ..' -e png -e jpg',
-      [[--preview "((termpix --width 90 --true-colour {} > \
-        /tmp/fzfimg && cat /tmp/fzfimg) || bat {})"]])
-    if choice then
-      vim.cmd('silent !feh --bg-fill ' .. choice[1])
-    end
-  end)()
+-- function fzf_wallpaper() -- Poor Man Wallpaper Changer (with preview)
+--   local fzf = require("fzf").fzf
+--   local img_dir = dirs.pictures
+--   coroutine.wrap(function()
+--     local choice = fzf('fd . '.. img_dir ..' -e png -e jpg',
+--       [[--preview "((termpix --width 90 --true-colour {} > \
+--         /tmp/fzfimg && cat /tmp/fzfimg) || bat {})"]])
+--     if choice then
+--       vim.cmd('silent !feh --bg-fill ' .. choice[1])
+--     end
+--   end)()
+-- end
+
+function fzf_wallpaper()
+  require('fzf-lua').files({
+    cwd       = dirs.pictures,
+    prompt    = 'Wallpaper » ',
+    previewer = "termpix",
+    actions = {
+      ["default"]  = function(selected) vim.cmd('silent !feh --bg-fill ' .. selected[2]) end
+    },
+  })
 end
 
 function fzf_autowallpaper()
@@ -244,3 +303,8 @@ function fzf_autowallpaper()
 
   end)()
 end
+-- Commands
+vim.cmd('command! Vimconfig     call v:lua.fzf_vimconfig()')
+vim.cmd('command! Project       call v:lua.fzf_projectionist()')
+vim.cmd('command! Wallpaper     call v:lua.fzf_wallpaper()')
+vim.cmd('command! Autowallpaper call v:lua.fzf_autowallpaper()')

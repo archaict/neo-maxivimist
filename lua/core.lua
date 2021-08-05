@@ -4,6 +4,7 @@
 
 local M = {}
 local codex = M
+local dirs = vim.fn.expand
 
 --  VAULT  : Core Configuration
 
@@ -11,24 +12,26 @@ local codex = M
 
       colorscheme = 'ayu',
 
-} --------------------------------------------------------------- [ KM ] ---
+    } --------------------------------------------------------------- [ KM ] ---
 
     codex.directories= {
       --  NOTE  : used in nvim-fzf
       project = {
-        '~/.config',                  -- Dots
-        '~/.config/nvim',             -- Neovim Config
-        '~/Dropbox',                  -- Dropbox
-        '~/Dropbox/sigil',            -- Sigil
-        '~/Dropbox/vault',            -- OrgMode
+        dirs'~/.config',                  -- Dots
+        dirs'~/.config/nvim',             -- Neovim Config
+        dirs'~/Dropbox',                  -- Dropbox
+        dirs'~/Dropbox/sigil',            -- Sigil
+        dirs'~/Dropbox/vault',            -- OrgMode
       },
+
+      dotfiles  = '~/Dropbox/codex',
+      dotconfig = '~/.config',
+      vimconfig = '~/.config/nvim',
 
       neorg     = '~/Dropbox/neorg',
       orgmode   = '~/Dropbox/vault',
-      dotfiles  = '~/Dropbox/codex',
-      dotconfig = '~/.config',
       orgroam   = '~/Dropbox/vault/roam',
-      vimconfig = '~/.config/nvim',
+
       pictures  = '~/Pictures',
 
     } --------------------------------------------------------------- [ KM ] ---
@@ -60,8 +63,9 @@ local codex = M
         'commentary',                 -- Commenting lines [tpope]
         'lspsaga',                    -- Defaults for lspsaga
         'autopairs',                  -- Poor man autopairs
+        'compe',                      -- Completion compe
         'floaterm',
-        'easymotion',
+        'hop',
         'nvimtree',
         'zen',
 
@@ -90,6 +94,14 @@ local codex = M
         -- Colorschemes
         { 'srcery-colors/srcery-vim' },
         { 'arcticicestudio/nord-vim' },
+        -- Telescope
+        -- { 'tamago324/telescope-openbrowser.nvim' },
+        -- { 'nvim-telescope/telescope-project.nvim' },
+        -- { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+        -- { 'nvim-telescope/telescope-media-files.nvim' },
+        -- { 'nvim-telescope/telescope-packer.nvim', disable = true },
+        -- { 'dhruvmanila/telescope-bookmarks.nvim' },
+        -- { 'nvim-telescope/telescope-fzf-writer.nvim' },
       }
 
     } --------------------------------------------------------------- [ MD ] ---
@@ -119,10 +131,10 @@ local codex = M
       },
 
       plugin = {
+      -- vim.g.loaded_plugins
       },
 
     } --------------------------------------------------------------- [ DB ] ---
-
 
 
 return codex

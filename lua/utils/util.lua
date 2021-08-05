@@ -87,7 +87,6 @@ function M.isdir(path)
    return exists(path.."/")
 end
 
-
 -- [ Reload Config ]
 
 function reload_config()

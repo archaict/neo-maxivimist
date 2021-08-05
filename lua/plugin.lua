@@ -130,14 +130,7 @@ return require('packer').startup(function()
               { "nvim-lua/plenary.nvim" },
               -- { 'airblade/vim-rooter' },
               -- { 'tyru/open-browser.vim' },
-              -- { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-              -- { 'nvim-telescope/telescope-media-files.nvim' },
-              -- { 'nvim-telescope/telescope-packer.nvim', disable = true },
-              -- { 'dhruvmanila/telescope-bookmarks.nvim' },
-              -- { 'nvim-telescope/telescope-fzf-writer.nvim' },
               { 'jvgrootveld/telescope-zoxide' },
-              -- { 'tamago324/telescope-openbrowser.nvim' },
-              -- { 'nvim-telescope/telescope-project.nvim' },
             },
             config = function()
               require'modules.plugin.fuzzy.telescope'
@@ -204,11 +197,8 @@ return require('packer').startup(function()
                    ]])
                  end
                },
-               { 'easymotion/vim-easymotion',
+               { 'phaazon/hop.nvim',
                  config = function()
-                   vim.g.EasyMotion_smartcase = 1
-                   vim.g.EasyMotion_do_mapping = 0
-                   vim.g.EasyMotion_use_smartsign_us = 1
                  end
                },
              },

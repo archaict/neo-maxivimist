@@ -35,6 +35,7 @@ function K.essentials()
 
   nmap ( 'Q','q' )
   nmap ( 'q','<Nop>' )
+  imap ( '<C-c>', '<ESC>' )
   -- No Highlights
   nmap ( '<BS>',':noh<CR>' )
   -- Find
@@ -241,7 +242,8 @@ function K.netrw()
 end
 
 function K.optional()
-  nmap ( '<C-a>', ":%y+<CR>" )
+  -- nmap ( '<C-a>', ":y+<CR>" )
+  nmap ( '<C-a>', "ggVG<CR>" )
 end
 
 function K.help()
@@ -325,7 +327,7 @@ end
 function K.nvimfzf()
   nmap ( -- Open Fzf Projectionist
     '<leader><CR>',
-    ':silent! lua fzf_projectionist{}<CR>'
+    ':silent! Project<CR>'
   )
   nmap ( '<leader>pp', ':silent! lua fzf_projectionist{}<CR>' )
 
@@ -334,11 +336,12 @@ function K.nvimfzf()
     ":silent! lua require('fzf-lua').files({cwd = '~'})<CR>"
   )
 
-  nmap ( '<leader>fw', ':silent! lua fzf_wallpaper{}<CR>' )
-  nmap ( '<leader>fW', ':silent! lua fzf_autowallpaper{}<CR>' )
-  nmap ( '<leader>fp', ':silent! lua fzf_vimconfig{}<CR>' )
+  nmap ( '<leader>fw', ':silent! Wallpaper<CR>' )
+  nmap ( '<leader>fW', ':silent! Autowallpaper<CR>' )
+  nmap ( '<leader>fp', ':silent! Vimconfig<CR>' )
   nmap ( '<leader>fd', ':silent! lua fzf_dotfiles{}<CR>' )
   nmap ( '<leader>ff', ":silent! lua require('fzf-lua').files()<CR>" )
+  nmap ( '<space><space>', ":silent! lua require('fzf-lua').files()<CR>" )
 
   nmap ( '<leader>fr', ":silent! lua require('fzf-lua').oldfiles()<CR>" )
 
@@ -346,7 +349,6 @@ function K.nvimfzf()
   nmap ( '<leader>bb', ":silent! lua require('fzf-lua').buffers()<CR>" )
   nmap ( '<leader>fb', ":silent! lua require('fzf-lua').buffers()<CR>" )
   nmap ( '<leader>/' , ":silent! lua require('fzf-lua').live_grep()<CR>" )
-
 
   nmap ( '<leader>fh', ":silent! lua require('fzf-lua').help_tags()<CR>" )
   nmap ( '<leader>fM', ":silent! lua require('fzf-lua').man_pages()<CR>" )
@@ -360,31 +362,38 @@ function K.nvimfzf()
   nmap ( '<leader>sb', ':silent! lua fzf_searchinbuffer{}<CR>' )
   nmap ( '<leader>sp', ':silent! lua fzf_searchinproject{}<CR>' )
 
-  nmap ( '<C-p>', ':silent! lua fzf_projectionist{}<CR>' )
+  nmap ( '<C-p>'     , ':silent! lua fzf_projectionist{}<CR>' )
   nmap ( '<leader>fc', ':silent! Cheat<CR>' )
+
+  --  NOTE  : Lsp
+  nmap ( '<leader>lt', ':lua require"fzf-lua".lsp_typedefs()<cr>' )
+  nmap ( '<leader>lr', ':lua require"fzf-lua".lsp_references()<cr>' )
+  nmap ( '<leader>lh', ':lua require"fzf-lua".lsp_definitions()<cr>' )
+  nmap ( '<leader>ls', ':lua require"fzf-lua".lsp_workspace_symbols()<cr>' )
 end
 
 function K.lspsaga()
   nmap ( 'gh'   , ':Lspsaga lsp_finder<CR>' )
-  nmap ( '<C-j>', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>" )
-  nmap ( '<C-k>', "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>" )
+  nmap ( '<C-j>', ":lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>" )
+  nmap ( '<C-k>', ":lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>" )
   nmap ( '<leader>ca', ':Lspsaga code_action<CR>' )
-  vmap ( '<leader>ca', ':<C-U>Lspsaga range_code_action<CR>' )
+  vmap ( '<leader>ca', ':C-U>Lspsaga range_code_action<CR>' )
   nmap ( '<leader>hh', ':Lspsaga hover_doc<CR>' )
 end
 
 function K.floaterm()
-  local TFLOAT = '<cmd>FloatermNew --height=0.9 --width=0.6 --wintype=float '
+  local TFLOAT = ':FloatermNew --height=0.9 --width=0.6 --wintype=float '
   nmap ('<leader>.', ":FloatermNew ranger<CR>" )
   nmap ('<leader>oo', TFLOAT .. "<cr>" )
-  nmap ('<leader>og', TFLOAT .. "lazygi<CR>" )
+  nmap ('<leader>og', TFLOAT .. "lazygit<CR>" )
 
 end
 
-function K.easymotion()
-  nmap ( '<C-f>','<Plug>(easymotion-sn)' )
-  nmap ("<leader>gj", '<Plug>(easymotion-j)' )
-  nmap ("<leader>gk", '<Plug>(easymotion-k)' )
+function K.hop()
+  nmap ( '<C-f>',':HopChar1<cr>' )
+  nmap ("<leader>gj", ':HopLine<cr>' )
+  nmap ("<leader>gk", ':HopLine<cr>' )
+  nmap ("<leader>gw", ':HopWord<cr>' )
 end
 
 function K.nvimtree()
@@ -395,6 +404,19 @@ end
 function K.zen()
   nmap ( '<leader>go',':silent TZAtaraxis<cr>' )
   nmap ( '<leader>gg',':silent TZMinimalist<cr>' )
+end
+
+function K.compe()
+  local map = vim.api.nvim_set_keymap
+  local expr = { expr = true }
+  -- map('i', '<Tab>', 'v:lua.tab_complete()', expr )
+  -- map('s', '<Tab>', 'v:lua.tab_complete()', expr )
+  -- map('i', '<S-Tab>', 'v:lua.s_tab_complete()', expr )
+  -- map('s', '<S-Tab>', 'v:lua.s_tab_complete()', expr )
+  -- map('i', '<CR>', "compe#confirm({'keys': '<CR>', 'select': v:true })", expr )
+  -- map('i', '<c-space>', 'compe#complete()', expr )
+  map('i', '<Tab>', 'pumvisible() ? "\\<C-y>" : "\\<Tab>"', expr)
+  map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', expr )
 end
 
 for _, keymap in pairs(Keymaps) do K[keymap]() end
