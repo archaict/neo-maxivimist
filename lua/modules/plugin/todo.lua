@@ -14,6 +14,7 @@ local color = require('colors.ayu').ayu
       FILE  = { icon = "廓", color = color.yellow },
       SECT  = { icon = " ", color = color.yellow },
       PACK  = { icon = "廓", color = color.blue  , alt = { 'PACKER' ,'PLUG' ,'PLUGIN' ,'PLUGINS' }},
+      NIXOS = { icon = " ", color = color.blue   },
        -- DEV
       WAIT  = { icon = " ", color = color.yellow },
       HACK  = { icon = " ", color = color.red    },

@@ -106,6 +106,7 @@ function K.shifting()
   vmap ( '<A-up>'   , ":m '<-2<CR>gv=gv" )
   imap ( '<A-down>' , "<Esc>:m .+1<CR>==gi" )
   imap ( '<A-up>'   , "<Esc>:m .-2<CR>==gi" )
+
 end
 
 function K.tabs()
@@ -208,6 +209,11 @@ function K.window()
   nmap ( '<leader>w=', ':wincmd =<CR>' )
 
   -- Window movement
+  nmap ( '<A-h>' , "<C-w><C-h>" )
+  nmap ( '<A-j>' , "<C-w><C-j>" )
+  nmap ( '<A-k>' , "<C-w><C-k>" )
+  nmap ( '<A-l>' , "<C-w><C-l>" )
+
   nmap ( '<leader>wh' , '<C-w><C-h>' )
   nmap ( '<leader>wj' , '<C-w><C-j>' )
   nmap ( '<leader>wk' , '<C-w><C-k>' )
@@ -244,6 +250,7 @@ end
 function K.optional()
   -- nmap ( '<C-a>', ":y+<CR>" )
   nmap ( '<C-a>', "ggVG<CR>" )
+  nmap ( '<Esc><Esc>', ":noh<CR>" )
 end
 
 function K.help()
@@ -272,6 +279,7 @@ end
 function K.files()
   nmap ( '<leader>fP', ':e ~/.config/nvim/lua/plugin.lua<CR>' )
   nmap ( '<leader>fm', ':e ~/.config/nvim/lua/core/motion.lua<CR>' )
+  nmap ( '<leader>C', ':e ~/.config/nvim/lua/core.lua<CR>' )
 end
 
 function K.telescope()
@@ -417,6 +425,10 @@ function K.compe()
   -- map('i', '<c-space>', 'compe#complete()', expr )
   map('i', '<Tab>', 'pumvisible() ? "\\<C-y>" : "\\<Tab>"', expr)
   map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', expr )
+end
+function K.nixos()
+  nmap ( '<leader>nn',':silent e /etc/nixos/configuration.nix<cr>' )
+  nmap ( '<leader>nh',':silent e ~/.config/nixpkgs/home.nix<cr>' )
 end
 
 for _, keymap in pairs(Keymaps) do K[keymap]() end

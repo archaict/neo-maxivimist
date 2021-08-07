@@ -22,6 +22,7 @@ local dirs = vim.fn.expand
         dirs'~/Dropbox',                  -- Dropbox
         dirs'~/Dropbox/sigil',            -- Sigil
         dirs'~/Dropbox/vault',            -- OrgMode
+        dirs'/etc/nixos',            -- OrgMode
       },
 
       dotfiles  = '~/Dropbox/codex',
@@ -68,6 +69,9 @@ local dirs = vim.fn.expand
         'hop',
         'nvimtree',
         'zen',
+
+--  NIXOS  : NixOS
+        'nixos',                      -- NixOS keymaps
 
     } --------------------------------------------------------------- [ KM ] ---
 

@@ -7,7 +7,6 @@ M.ayu = {
   black     = '#282828';
   d_grey    = "#3D424D";
   grey      = "#404040";
-  grey1     = '#5C6773';
   l_grey    = "#B3B1AD";
   white     = '#CCCCCC';
   b_white   = '#FAFAFA';

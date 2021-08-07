@@ -6,7 +6,6 @@ local w = vim.wo -- windows-scoped options
 local cmd = vim.cmd -- execute Vim commands
 CACHE = vim.fn.stdpath "cache"
 local indent = 2
-local home = os.getenv("HOME")
 local core = require'core'.core
 --------------------------------------------------------------------------------
 
@@ -83,7 +82,7 @@ o.showcmd = true
 
 -- [ Management ] --------------------------------------------------------------
 
-o.shell = '/bin/zsh'
+o.shell = '/usr/bin/env zsh'
 o.ttyfast = true
 o.ttimeout = true
 o.ttimeoutlen = 50
@@ -110,12 +109,23 @@ cmd "filetype plugin indent on"
 cmd "set iskeyword+=-"
 cmd "set inccommand=split"
 
-vim.cmd("cab W w")
-vim.cmd("cab Wq wq")
-vim.cmd("cab wQ wq")
-vim.cmd("cab WQ wq")
-vim.cmd("cab Q q")
-vim.cmd("cab q1 q!")
+abbrev "Q q"
+abbrev "W w"
+abbrev "q1 q!"
+abbrev 'Qa qa'
+abbrev 'qa1 qa!'
+abbrev 'q w<bar>bd!'
+abbrev "Wq wq"
+abbrev "wQ wq"
+abbrev "WQ wq"
+abbrev "wqa1 wqa!"
+abbrev 'Wqa wqa'
+
+
+-- [ Others ] ------------------------------------------------------------------
+
+cmd("let g:neovide_cursor_vfx_mode = 'railgun'")
+cmd("set sessionoptions-=options")
 
 function create_if_not_exists(folder)
   if not vim.fn.isdirectory(folder) then
@@ -123,9 +133,8 @@ function create_if_not_exists(folder)
   end
 end
 
+local home = os.getenv("HOME")
 o.undodir = home .. "/.cache/nvim/undo"
-o.backupdir = home .. "/.cache/nvim/backup"
-create_if_not_exists(home .. "/.cache/nvim/undo")
-create_if_not_exists(home .. "/.cache/nvim/backup")
-
-vim.cmd 'au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc'
+-- o.backupdir = home .. "/.cache/nvim/backup"
+create_if_not_exists( home .. "/.cache/nvim/undo" )
+create_if_not_exists( home .. "/.cache/nvim/backup" )

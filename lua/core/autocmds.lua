@@ -1,8 +1,58 @@
 
--- [ Builtins ] -----------------------------------------
+local api = vim.api
+-- Taken from https://github.com/norcalli/nvim_utils
+local function nvim_create_augroups(definitions)
+  for group_name, definition in pairs(definitions) do
+    api.nvim_command('augroup '..group_name)
+    api.nvim_command('autocmd!')
+    for _, def in ipairs(definition) do
+      local command = table.concat(vim.tbl_flatten{'autocmd', def}, ' ')
+      api.nvim_command(command)
+    end
+    api.nvim_command('augroup END')
+  end
+end
 
-cmd("au! BufWinEnter,WinEnter term://* startinsert")
-cmd("au! TermOpen term://* setlocal nonumber  laststatus=0")
+local autocmds = {
+
+  terminal = {
+    {
+      'TermOpen',
+      'term://*',
+      'setlocal norelativenumber nonumber laststatus=0'
+    },
+    { 'BufWinEnter,WinEnter','term://*', 'startinsert' },
+  },
+
+  cursor_position = {
+    { 'BufLeave', '*', 'silent! normal! m"' },
+    { 'BufEnter', '*', 'silent! normal! g`"' },
+  },
+
+  remove_trailing_whitespace = {
+    { 'BufWritePre', '*', ':%s/\\s\\+$//e' },
+  },
+
+  save_on_switch_buffer = {
+    { 'FocusLost,WinLeave', '*', ':silent! noautocmd w' },
+  },
+
+  vim_resized_on_window_resize = {
+    { 'Vimresized', '*', ':wincmd =' },
+  },
+
+  others = {
+    { 'BufEnter', '*', 'if expand("%:p:h") !~ "^/tmp" | silent! lcd %:p:h | endif' },
+  },
+  markdown = {
+    { 'BufNewFile,BufFilePre,BufRead', '*.md', 'set filetype=markdown.pandoc' },
+  },
+
+}
+
+nvim_create_augroups(autocmds)
+
+-- [ Builtins ] -----------------------------------------
 
 cmd([[
   " | Fuzzy Finder Builtins
@@ -13,23 +63,4 @@ cmd([[
   set wildignore+=*.pdf,*.psd
 ]])
 
-cmd 'let g:neovide_cursor_vfx_mode = "railgun"'
-cmd("au! Vimresized * :wincmd =")
-cmd("au! FocusLost,WinLeave * :silent! noautocmd w")
-cmd("au! BufEnter * if expand('%:p:h') !~ '^/tmp' | silent! lcd %:p:h | endif")
-cmd("set sessionoptions-=options")
-cmd('au! BufLeave * silent! normal! m"') -- marking cursor position
-cmd('au! BufEnter * silent! normal! g`"') -- remember cursor position
-cmd("au! BufWritePre * :%s/\\s\\+$//e") -- remove trailing whitespaces
-
 -- [ Fixes ]
-vim.cmd ([[
-  cnoreabbrev q w<bar>bd!
-  cnoreabbrev wqa1 wqa!
-  cnoreabbrev qa1 qa!
-  cnoreabbrev Qa qa
-  cnoreabbrev Wqa wqa
-  cnoreabbrev W w
-  cnoreabbrev Q q
-  cnoreabbrev B buffer
-]])

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 echo "Starting the moon-seeker"
 echo "================================================="
 echo "please wait while Neo-Maxivimist is installing..."

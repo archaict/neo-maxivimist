@@ -16,6 +16,7 @@ require('core.binds')
 -- [ Plugins ]
 require('plugin')
 require('profile.user-config')
+
 vim.cmd([[
   function! SyncPluginsAndQuit()
     autocmd User PackerComplete qa

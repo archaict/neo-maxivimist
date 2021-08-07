@@ -119,18 +119,19 @@ if config.modules.leader then
       },
 
 
-      n = { --  | NORG | Org-Mode on Neovim! |  TODO: Add more Neorg related stuff
-        name = "Open Something",
-        o = { "Org: Roam" };
+      n = { --  | NixORG |
+        name = "Nixos & Org",
+        -- Org Roam
+        d = { "Org: Notebook" };
         r = { "Org: Roam" };
-        p = { "Neorg: Roam" },
-        n = { "Neorg: Roam" },
-        d = { "Neorg: Dashboard" },
-        t = { "Neorg: Todo" };
+        t = { "Org: Todo Search" };
+
+        n = { "NixOS: configuration.nix" },
+        h = { "NixOS: home.nix" },
       },
 
 
-      o = { -- | OPEN | Open gate to the moon! |  TODO: Add more keybinds
+      o = { -- | ORGS
         name = "Open Something",
         d = { "Open Dashboard" };
         a = { "Open Org Agenda" };
@@ -214,13 +215,9 @@ if config.modules.leader then
       },
 
 
-      -- ['<leader>'] = { -- EasyMotion
-    -- -- [SPC] = { "za"                                  , "Fold Toggle" };
-    -- [SLS] = { "<Plug>(easymotion-sn)"               , "Easymotion" };
-      --   w = { "<Plug>(easymotion-overwin-f)"        , "Easymotion" };
-      --   f = { "<Plug>(easymotion-overwin-f)"        , "Easymotion" };
-      --   s = { "<Plug>(easymotion-bd-w)"             , "Easymotion" };
-      -- },
+      ['<leader>'] = { -- EasyMotion
+      name = 'Find Files',
+      },
 
 
       z = { -- | ZAPS | Zap it in or out?

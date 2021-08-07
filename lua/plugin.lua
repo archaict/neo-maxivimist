@@ -21,23 +21,25 @@ return require('packer').startup(function()
     use ({  -- The Essentials
             -- whatever you need
 
-             'wbthomason/packer.nvim',
-             event = 'VimEnter',
-             requires = {
-               { 'kyazdani42/nvim-web-devicons' },
-               { 'lambdalisue/suda.vim',
-                 config = vim.cmd ([[
-                   nnoremap <leader>sW :SudaWrite<cr>
-                   nnoremap <leader>sR :SudaRead<cr>
-                 ]])
-               },
-               { 'svermeulen/vimpeccable' },
-               { 'jdhao/better-escape.vim',
-                 config = vim.cmd([[
-                   let g:better_escape_shortcut = ['jk', 'kj']
-                 ]])
-             },
-             }
+            'wbthomason/packer.nvim',
+            event = 'VimEnter',
+            requires = {
+              { 'kyazdani42/nvim-web-devicons' },
+              { 'lambdalisue/suda.vim',
+                config =
+                    vim.cmd ([[
+                      let g:suda_smart_edit = 1
+                      nnoremap <leader>sW :SudaWrite<cr>
+                      nnoremap <leader>sR :SudaRead<cr>
+                    ]])
+              },
+              { 'svermeulen/vimpeccable' },
+              { 'jdhao/better-escape.vim',
+                config = vim.cmd([[
+                  let g:better_escape_shortcut = ['jk', 'kj']
+                ]])
+            },
+            }
 
     })
 
@@ -52,16 +54,15 @@ return require('packer').startup(function()
               { 'hrsh7th/nvim-compe'                , config = require'modules.plugin.compe' },
               { 'mattn/emmet-vim' },
               { 'ray-x/lsp_signature.nvim'          , disable = true },
-              {
-                 'glepnir/lspsaga.nvim',
-                   config = function()
-                     require'lspsaga'.init_lsp_saga{
-                       code_action_icon = ' ',
-                       code_action_prompt = {
-                         enable = true;
-                         sign =false;
-                         virtual_text = true;
-                    }} end },
+              { 'glepnir/lspsaga.nvim',
+                  config = function()
+                    require'lspsaga'.init_lsp_saga{
+                      code_action_icon = ' ',
+                      code_action_prompt = {
+                        enable = true;
+                        sign =false;
+                        virtual_text = true;
+                  }} end },
               { 'pearofducks/ansible-vim' },
               { 'SirVer/ultisnips' ,
                 config = vim.cmd([[
@@ -72,7 +73,7 @@ return require('packer').startup(function()
             config = function ()
               require'modules.plugin.lspconfig'
             end
-      })
+    })
 
 
     use ({  -- The Engulfing Board
@@ -138,21 +139,30 @@ return require('packer').startup(function()
 
     })
 
+    use({  -- The Nixies
+           -- language of nixies
+
+           'LnL7/vim-nix',
+
+    })
+
+
     use ({  -- The Twin Moon Seeker
             -- fuzzy finding plantes in outer spaces
 
-            'vijaymarupudi/nvim-fzf',
-             requires = {
-               { 'ibhagwan/fzf-lua' },
-               { 'airblade/vim-rooter' },
-               { "nvim-lua/popup.nvim" },
-               { "nvim-lua/plenary.nvim" },
-             },
-             config = function()
-               require'modules.plugin.fuzzy.fzf'
-             end
+            'ibhagwan/fzf-lua',
+            requires = {
+              { 'vijaymarupudi/nvim-fzf' },
+              { 'airblade/vim-rooter' },
+              { "nvim-lua/popup.nvim" },
+              { "nvim-lua/plenary.nvim" },
+            },
+            config = function()
+              require'modules.plugin.fuzzy.fzf'
+            end
 
     })
+
 
     use ({  -- The Tome Keeper
             -- notational notebook
@@ -166,51 +176,65 @@ return require('packer').startup(function()
             },
             config = function()
               require'modules.plugin.orgmode'
-              vim.cmd([[ let g:pandoc#syntax#codeblocks#embeds#langs = [ "python", "lua", "bash=sh"] ]])
+              vim.cmd([[
+                let g:pandoc#syntax#codeblocks#embeds#langs = [ "python", "lua", "bash=sh"]
+              ]])
             end
 
     })
 
 
+    -- use ({  -- The Catcher
+    --         -- separator
+
+    --         'AckslD/nvim-revJ.lua',
+    --         requires = { 'kana/vim-textobj-user', 'sgur/vim-textobj-parameter' },
+    --         config =
+    --           require("revj").setup{
+    --               brackets = { first = '([{<', last = ')]}>', },
+    --               new_line_before_last_bracket = true,
+    --               add_seperator_for_last_parameter = true,
+    --               enable_default_keymaps = false,
+    --               keymaps = { line   = '<Leader>ij', visual = '<Leader>iJ', },
+    --           }
+
+    -- })
+
+
     use ({  -- The Descriptor
             -- same essentials for motions
 
-             'folke/which-key.nvim',
-             requires = {
-               { 'gcmt/breeze.vim' },
-               { 'tommcdo/vim-lion' },
-               { 'kyazdani42/nvim-tree.lua'        , config = require'modules.plugin.nvimtree' },
-               { 'voldikss/vim-floaterm',
-                 config = function()
-                   vim.g.floaterm_opener = 'drop'
-                   vim.g.floaterm_autoclose = 2
-                   vim.g.floaterm_wintype = 'split'
-                   vim.g.floaterm_height = 0.3
-                   vim.g.floaterm_width = 80
-                   vim.cmd([[
-                     nnoremap <silent> <leader>oo :FloatermToggle<CR>
-                     nnoremap <silent> <leader>ot :FloatermToggle<CR>
-                     nnoremap <silent> <leader>or :FloatermNew ranger<CR>
-                     nnoremap <silent> <leader>Gl :FloatermNew lazygit<CR>
-                    "nnoremap <silent> <leader><leader><Esc> :FloatermToggle<cr>
-                    "tnoremap <silent> <leader><Esc> <C-\><C-n>:FloatermToggle<cr>
-                   ]])
-                 end
-               },
-               { 'phaazon/hop.nvim',
-                 config = function()
-                 end
-               },
-             },
-             config = function()
-               require'modules.plugin.whichkey'
-               require'core.motion'
-             end
+            'folke/which-key.nvim',
+            requires = {
+              { 'gcmt/breeze.vim' },
+              { 'tommcdo/vim-lion' },
+              { 'kyazdani42/nvim-tree.lua'        , config = require'modules.plugin.nvimtree' },
+              { 'voldikss/vim-floaterm',
+                config = function()
+                  vim.g.floaterm_opener = 'drop'
+                  vim.g.floaterm_autoclose = 2
+                  vim.g.floaterm_wintype = 'split'
+                  vim.g.floaterm_height = 0.3
+                  vim.g.floaterm_width = 80
+                  vim.cmd([[
+                    nnoremap <silent> <leader>oo :FloatermToggle<CR>
+                    nnoremap <silent> <leader>ot :FloatermToggle<CR>
+                    nnoremap <silent> <leader>or :FloatermNew ranger<CR>
+                    nnoremap <silent> <leader>Gl :FloatermNew lazygit<CR>
+                   "nnoremap <silent> <leader><leader><Esc> :FloatermToggle<cr>
+                   "tnoremap <silent> <leader><Esc> <C-\><C-n>:FloatermToggle<cr>
+                  ]])
+                end
+              },
+              { 'phaazon/hop.nvim' },
+            },
+            config = function()
+              require'modules.plugin.whichkey'
+              require'core.motion'
+            end
 
     })
 
-    for _, plugin in ipairs(require'core'.modules.plugins) do
-      use(plugin)
-    end
+    for _, plugin in ipairs(require'core'.modules.plugins) do use(plugin) end
   end
 )
