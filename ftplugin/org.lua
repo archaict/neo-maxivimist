@@ -1,5 +1,3 @@
-vim.cmd [[inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>" ]]
-vim.cmd [[inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>" ]]
 vim.cmd "nmap <A-space> za"
 vim.cmd "nmap <leader>a <S-Tab>"
 vim.cmd "nmap <leader>r zR"

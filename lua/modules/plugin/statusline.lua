@@ -68,10 +68,6 @@ local vi_mode_text = {
 
 }
 
--- function Battery()
---   vim.cmd('!cat /sys/class/power_supply/BAT1/capacity')
--- end
-
 -- LEFT
 --
 -- vi-mode  
@@ -113,58 +109,71 @@ components.left.active[3] = {
 -- FNAME
 components.left.active[4] = {
   -- function() return string.format(vim.fn.pathshorten(vim.fn.expand('%:p'))) end,
-    provider = 'file_info',
+    provider = function()
+    local filename  = vim.fn.expand('%:t')
+    local extension = vim.fn.expand('%:e')
+      return require'nvim-web-devicons'.get_icon(filename, extension, { default = true })
+    end,
+    hl = { fg = 'fg', bg = 'bg', style = 'bold' },
+    left_sep   = { str = ' ', hl = { fg = 'fg', bg = 'bg' }},
+    right_sep  = { str = ' ', hl = { fg = 'fg', bg = 'bg' }},
+}
+
+-- FNAME
+components.left.active[5] = {
+  -- function() return string.format(vim.fn.pathshorten(vim.fn.expand('%:p'))) end,
+    provider = function() return '%t' end,
     hl = { fg = 'fg', bg = 'bg', style = 'bold' },
     left_sep  = {str = ' ', hl = { fg = 'fg', bg = 'bg',}},
-    right_sep = {str = ' ' , hl = { fg = 'fg', bg = 'bg',}},
+    right_sep = {str = ' ', hl = { fg = 'fg', bg = 'bg',}},
 }
 
 -- gitBranch
-components.left.active[5] = {
+components.left.active[6] = {
   provider = 'git_branch',
   hl = { fg = 'yellow', bg = 'bg', style = 'bold' }}
 
 -- diffAdd
-components.left.active[6] = {
+components.left.active[7] = {
   provider = 'git_diff_added',
   hl = { fg = 'green', bg = 'bg', style = 'bold' }}
 
 -- diffModfified
-components.left.active[7] = {
+components.left.active[8] = {
   provider = 'git_diff_changed',
   hl = { fg = 'orange', bg = 'bg', style = 'bold' }}
 
 -- diffRemove
-components.left.active[8] = {
+components.left.active[9] = {
   provider = 'git_diff_removed',
   hl = { fg = 'red', bg = 'bg', style = 'bold' }}
 
 -- MID
 
--- -- LspName
--- components.mid.active[1] = {
---   provider = 'lsp_client_names',
---   hl = { fg = 'yellow', bg = 'bg', style = 'bold' },
---   right_sep = ' '
--- }
+-- LspName
+components.mid.active[1] = {
+  provider = 'lsp_client_names',
+  hl = { fg = 'yellow', bg = 'bg', style = 'bold' },
+  right_sep = ' '
+}
 
 -- diagnosticErrors
-components.mid.active[1] = {
+components.mid.active[2] = {
   provider = 'diagnostic_errors',
   enabled = function() return lsp.diagnostics_exist('Error') end,
   hl = { fg = 'red', style = 'bold' } }
 -- diagnosticWarn
-components.mid.active[2] = {
+components.mid.active[3] = {
   provider = 'diagnostic_warnings',
   enabled = function() return lsp.diagnostics_exist('Warning') end,
   hl = { fg = 'yellow', style = 'bold' } }
 -- diagnosticHint
-components.mid.active[3] = {
+components.mid.active[4] = {
   provider = 'diagnostic_hints',
   enabled = function() return lsp.diagnostics_exist('Hint') end,
   hl = { fg = 'cyan', style = 'bold' } }
 -- diagnosticInfo
-components.mid.active[4] = {
+components.mid.active[5] = {
   provider = 'diagnostic_info',
   enabled = function() return lsp.diagnostics_exist('Information') end,
   hl = { fg = 'skyblue', style = 'bold' } }
@@ -192,27 +201,6 @@ components.right.active[2] = {
   left_sep  = { str = ' ', hl = { fg = 'fg', bg = 'bg' }},
   right_sep = { str = '', hl = { fg = 'fg', bg = 'bg' }},
 }
-
--- components.right.active[1] = {
---   provider = 'position',
---   hl = { fg = 'fg', bg = 'panel_alt', style = 'bold' },
---   left_sep  = { str = ' ', hl = { fg = 'fg', bg = 'panel_alt' }},
---   right_sep = { str = ' :: ', hl = { fg = 'fg', bg = 'panel_alt' }},
--- }
-
--- components.right.active[2] = {
---   provider = 'line_percentage',
---   hl = { fg = 'fg', bg = 'panel_alt', style = 'bold' },
---   right_sep = { str = ' :: ', hl = { fg = 'fg', bg = 'panel_alt' }},
--- }
-
--- components.right.active[1] = {
---   provider = 'file_type',
---   hl = { fg = 'fg', bg = 'bg', style = 'bold' },
---   left_sep  = { str = '', hl = { fg = 'fg', bg = 'bg' }},
---   right_sep = { str = '', hl = { fg = 'fg', bg = 'bg' }},
--- }
-
 
 -- encoding
 components.right.active[3] = {

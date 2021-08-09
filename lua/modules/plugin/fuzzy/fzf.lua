@@ -249,6 +249,15 @@ function fzf_neorg()
   vim.cmd('chdir ' .. choice )
 end
 
+function fzf_nixos()
+  local choice = dirs.nixos
+  require('fzf-lua').files({
+    prompt  = 'NixOS » ',
+    cwd = choice;
+  })
+  vim.cmd('chdir ' .. choice )
+end
+
 function fzf_searchinbuffer()
   require('fzf-lua').grep_curbuf({
     prompt  = 'Search in Buffer » ',
@@ -304,6 +313,7 @@ function fzf_autowallpaper()
   end)()
 end
 -- Commands
+vim.cmd('command! Nixconfig     call v:lua.fzf_nixos()')
 vim.cmd('command! Vimconfig     call v:lua.fzf_vimconfig()')
 vim.cmd('command! Project       call v:lua.fzf_projectionist()')
 vim.cmd('command! Wallpaper     call v:lua.fzf_wallpaper()')

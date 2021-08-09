@@ -11,6 +11,9 @@ vim.g.mapleader  = ' '
 
 local K = {}
 
+-- VAULT:
+
+-- [ Autopairs ] Poor man autopairs {{{
 function K.autopairs()
   -- cmd 'inoremap " ""<left>'
   -- cmd "inoremap ' ''<left>"
@@ -27,7 +30,8 @@ function K.autopairs()
   vmap ( "<leader>[", "c[]<Esc>P" )
   vmap ( "<leader><", "c<><Esc>P" )
 end
-
+-- }}}
+-- [ Essentials ] What you need {{{
 function K.essentials()
 
   cmd "nnoremap ; :"
@@ -47,6 +51,7 @@ function K.essentials()
   nmap ( '<Insert>', ':startinsert<CR>' )
   imap ( '<Insert>', '<C-o>:stopinsert<CR>' )
   nmap ( '<leader>tl', ':call ChangeLineNumbering()<CR>' )
+  nmap ( '<A-Space>', 'za' )
 
   i = {
   -- Escape Sequence
@@ -57,7 +62,8 @@ function K.essentials()
   }
 
 for k,v in pairs(i) do vim.api.nvim_set_keymap( 'i', k, v, opts ) end end
-
+-- }}}
+-- [ Movement ] Navigation made easy {{{
 function K.movement()
   -- Movement
   nmap ( 'j', 'gj' )
@@ -87,12 +93,14 @@ function K.movement()
   -- nmap ( '<A-k>', '<C-U>' )
 
 end
-
+-- }}}
+-- [ Commentary ] Using Tpope's {{{
 function K.commentary()
   vmap ( ';', ':Commentary<CR>' )
   vmap ( '/', ':Commentary<CR>' )
 end
-
+-- }}}
+-- [ Shifting ] Indentation maker! {{{
 function K.shifting()
 
   -- Indentation
@@ -108,7 +116,8 @@ function K.shifting()
   imap ( '<A-up>'   , "<Esc>:m .-2<CR>==gi" )
 
 end
-
+-- }}}
+-- [ Tabbings ] | Tabline navigation {{{
 function K.tabs()
   -- Move between tabs, check your wm first!
   nmap ( '<A-left>' , ':tabprevious<CR>' )
@@ -148,7 +157,8 @@ function K.tabs()
   imap ( '<A-9>' , '<C-\\><C-n>:tablast<CR>' )
   imap ( '<C-Esc>', '<C-\\><C-n>' )
 end
-
+-- }}}
+-- [ Buffers ] | Buffer navigation {{{
 function K.buffers()
   -- Move to next buffer
   nmap ( '<C-e><C-n>' , ':bnext<cr>' )
@@ -163,15 +173,13 @@ function K.buffers()
   nmap ( '<leader>]' , ':silent! bnext<cr>')
   nmap ( '<leader>[' , ':silent! bprev<cr>')
 end
-
+-- }}}
+-- [ Terminals ] Terminally living {{{
 function K.terminal()
   -- Open Terminal in new tab
   nmap ( "<C-o>" , ":tabnew<CR>:set nonumber<CR>:term<CR>i" )
 
   -- Terminal Toggle
-  nmap ( '<leader>oo' , ':call TermToggle(10)<CR>'  )
-  nmap ( '<leader>ot' , ':call TermToggle(10)<CR>'  )
-  nmap ( '<C-e><C-e>' , ':call TermToggle(10)<CR>'  )
   nmap ( '<C-e><C-o>' , '<C-\\><C-n>:e '  )
 
   nmap ( '<C-e><C-w>' , '<C-\\><C-n><C-w><C-w>'  )
@@ -179,7 +187,10 @@ function K.terminal()
   nmap ( '<C-q><C-q>' , ':silent! bd!<cr>'  )
   nmap ( '<C-q>'      , '<NOP>'  )
 
-  tmap ( '<C-e><C-e>' , '<C-\\><C-n>:call TermToggle(12)<CR>'  )
+  -- nmap ( '<leader>oo' , ':call TermToggle(10)<CR>'  )
+  -- nmap ( '<leader>ot' , ':call TermToggle(10)<CR>'  )
+  -- nmap ( '<C-e><C-e>' , ':call TermToggle(10)<CR>'  )
+  -- tmap ( '<C-e><C-e>' , '<C-\\><C-n>:call TermToggle(10)<CR>'  )
 
   tmap ( '<C-e><C-q>' , '<C-\\><C-n>:silent! bd!<Esc>'  )
   tmap ( '<C-e><C-n>' , '<C-\\><C-n>:silent! bnext<cr>' )
@@ -190,12 +201,14 @@ function K.terminal()
   tmap ( '<C-q>'      , '<C-\\><C-n>:silent! bd!<CR>'  )
 
 end
-
+-- }}}
+-- [ Sessions ] Session mappings {{{
 function K.sessions()
   nmap ( '<leader>ss' ,':mks! ' .. Session .. SessName .. '<CR>' )
   nmap ( '<leader>sl' ,':source ' .. Session .. SessName .. '<CR>' )
 end
-
+-- }}}
+-- [ Windows ] Not that windows {{{
 function K.window()
   -- Horizontal Resize
   nmap ( '<A-+>' ,':resize -5<CR>' )
@@ -234,7 +247,8 @@ function K.window()
   nmap ( '<leader>wH' , ':vertical resize -5<CR>' )
   nmap ( '<leader>wL' , ':vertical resize +5<CR>' )
 end
-
+-- }}}
+-- [ Quits ] Vim exits made easy {{{
 function K.quit()
   -- Quitting
   nmap ( '<leader>qq' , ':qa!<CR>'  )
@@ -242,46 +256,54 @@ function K.quit()
   nmap ( '<leader>qw' , ':wq!<CR>'  )
   nmap ( '<leader>qd' , ':wqa!<CR>' )
 end
-
+-- }}}
+-- [ Netrw ] Poor-man nerd-tree {{{
 function K.netrw()
   nmap ( '<space>dd' , ':Lexplore<CR>')
 end
-
+-- }}}
+-- [ Optionals ] We need some options  {{{
 function K.optional()
   -- nmap ( '<C-a>', ":y+<CR>" )
   nmap ( '<C-a>', "ggVG<CR>" )
   nmap ( '<Esc><Esc>', ":noh<CR>" )
 end
-
+-- }}}
+-- [ Help ] Need some help? {{{
 function K.help()
  nmap ('<leader>he', ':help ')
  nmap ('<leader>ho', ':help options<CR>')
  nmap ('<leader>rr', ':so %<CR>')
 
 end
-
+-- }}}
 
 --  PACKER:
 
+-- [ Packer ] Pack your stuff {{{
 function K.packer()
   nmap ( '<leader>pi', ':PackerInstall<CR>' )
   nmap ( '<leader>ps', ':PackerSync<CR>' )
   nmap ( '<leader>pc', ':PackerCompile<CR>' )
   nmap ( '<leader>pC', ':PackerClean<CR>' )
 end
-
+-- }}}
+-- [ Dashboard ] Your front page {{{
 function K.dashboard()
   nmap ( '<leader>od', ':Dashboard<CR>' )
 end
+-- }}}
 
 --  PLUGIN:
 
+-- [ Files ] {{{
 function K.files()
   nmap ( '<leader>fP', ':e ~/.config/nvim/lua/plugin.lua<CR>' )
   nmap ( '<leader>fm', ':e ~/.config/nvim/lua/core/motion.lua<CR>' )
   nmap ( '<leader>C', ':e ~/.config/nvim/lua/core.lua<CR>' )
 end
-
+-- }}}
+-- [ Telescope ] {{{
 function K.telescope()
   local TEL_EX = ":silent! lua require('telescope').extensions."
   local TEL_MO = ":silent! lua require('modules.plugin.fuzzy.telescope')."
@@ -331,7 +353,8 @@ function K.telescope()
   nmap ( '<leader>nr', TEL_MO .. "search_roam()<CR>"  )
   nmap ( '<leader>nt', ':silent! TodoTelescope cwd='..require'core'.directories.orgroam..'<CR>' )
 end
-
+-- }}}
+-- [ FZF-Lua ] {{{
 function K.nvimfzf()
   nmap ( -- Open Fzf Projectionist
     '<leader><CR>',
@@ -379,7 +402,8 @@ function K.nvimfzf()
   nmap ( '<leader>lh', ':lua require"fzf-lua".lsp_definitions()<cr>' )
   nmap ( '<leader>ls', ':lua require"fzf-lua".lsp_workspace_symbols()<cr>' )
 end
-
+-- }}}
+-- [ LspSaga ] {{{
 function K.lspsaga()
   nmap ( 'gh'   , ':Lspsaga lsp_finder<CR>' )
   nmap ( '<C-j>', ":lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>" )
@@ -387,8 +411,10 @@ function K.lspsaga()
   nmap ( '<leader>ca', ':Lspsaga code_action<CR>' )
   vmap ( '<leader>ca', ':C-U>Lspsaga range_code_action<CR>' )
   nmap ( '<leader>hh', ':Lspsaga hover_doc<CR>' )
+  nmap ( '<leader>F', ':Format<CR>' )
 end
-
+-- }}}
+-- [ Floaterm ] {{{
 function K.floaterm()
   local TFLOAT = ':FloatermNew --height=0.9 --width=0.6 --wintype=float '
   nmap ('<leader>.', ":FloatermNew ranger<CR>" )
@@ -396,24 +422,28 @@ function K.floaterm()
   nmap ('<leader>og', TFLOAT .. "lazygit<CR>" )
 
 end
-
+-- }}}
+-- [ Hops ] {{{
 function K.hop()
   nmap ( '<C-f>',':HopChar1<cr>' )
   nmap ("<leader>gj", ':HopLine<cr>' )
   nmap ("<leader>gk", ':HopLine<cr>' )
   nmap ("<leader>gw", ':HopWord<cr>' )
 end
-
+-- }}}
+-- [ NvimTree ] {{{
 function K.nvimtree()
   nmap ( '<leader>dd',':silent lua GoCwd{}<cr>' )
   nmap ( '<leader>df',':silent NvimTreeToggle<cr>' )
 end
-
+-- }}}
+-- [ Zen ] {{{
 function K.zen()
   nmap ( '<leader>go',':silent TZAtaraxis<cr>' )
   nmap ( '<leader>gg',':silent TZMinimalist<cr>' )
 end
-
+-- }}}
+-- [ Compe ] {{{
 function K.compe()
   local map = vim.api.nvim_set_keymap
   local expr = { expr = true }
@@ -426,9 +456,15 @@ function K.compe()
   map('i', '<Tab>', 'pumvisible() ? "\\<C-y>" : "\\<Tab>"', expr)
   map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', expr )
 end
+-- }}}
+-- [ Nixos ] {{{
 function K.nixos()
+  nmap ( '<leader>nf',':silent! Nixconfig<CR>' )
   nmap ( '<leader>nn',':silent e /etc/nixos/configuration.nix<cr>' )
-  nmap ( '<leader>nh',':silent e ~/.config/nixpkgs/home.nix<cr>' )
+  nmap ( '<leader>nh',':silent e /etc/nixos/home.nix<cr>' )
+  nmap ( '<leader>nc',':silent e /etc/nixos/core/programs/corepkgs.nix<cr>' )
+  nmap ( '<leader>nF',':silent e /etc/nixos/flake.nix<cr>' )
 end
+-- }}}
 
 for _, keymap in pairs(Keymaps) do K[keymap]() end

@@ -29,12 +29,12 @@ if config.modules.leader then
   -- Lead me in
     ["<leader>"] = {
       -- | DOTS | Need Symbols
-        [RET] = { "Project Lists" };
-        [DOT] = { "Open Current Directory"};
-        [SMC] = { "M-X (à la emacs)"};
-        [SLS] = { "Search Inside Buffer" };
-        [RBR] = { "Next Buffer" };
-        [LBR] = { "Previous Buffer" };
+        -- [RET] = { "Project Lists" };
+        -- [DOT] = { "Open Current Directory"};
+        -- [SMC] = { "M-X (à la emacs)"};
+        -- [SLS] = { "Search Inside Buffer" };
+        -- [RBR] = { "Next Buffer" };
+        -- [LBR] = { "Previous Buffer" };
 
 
       b = { -- | BUFF | Buffer related keybinds

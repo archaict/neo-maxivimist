@@ -21,6 +21,11 @@ local autocmds = {
       'term://*',
       'setlocal norelativenumber nonumber laststatus=0'
     },
+    {
+      'TermClose',
+      'term://*',
+      'setlocal laststatus=2'
+    },
     { 'BufWinEnter,WinEnter','term://*', 'startinsert' },
   },
 

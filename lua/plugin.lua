@@ -38,7 +38,7 @@ return require('packer').startup(function()
                 config = vim.cmd([[
                   let g:better_escape_shortcut = ['jk', 'kj']
                 ]])
-            },
+              },
             }
 
     })
@@ -50,29 +50,32 @@ return require('packer').startup(function()
             'neovim/nvim-lspconfig',
             requires = {
               { 'kabouzeid/nvim-lspinstall' },
+              { 'mhartington/formatter.nvim' },
               { 'tjdevries/astronauta.nvim' },
               { 'hrsh7th/nvim-compe'                , config = require'modules.plugin.compe' },
               { 'mattn/emmet-vim' },
-              { 'ray-x/lsp_signature.nvim'          , disable = true },
               { 'glepnir/lspsaga.nvim',
                   config = function()
                     require'lspsaga'.init_lsp_saga{
                       code_action_icon = ' ',
                       code_action_prompt = {
                         enable = true;
-                        sign =false;
+                        sign = false;
                         virtual_text = true;
                   }} end },
               { 'pearofducks/ansible-vim' },
               { 'SirVer/ultisnips' ,
                 config = vim.cmd([[
-                  let g:UltiSnipsJumpForwardTrigger="<c-b>"
-                  let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+                  let g:UltiSnipsExpandTrigger="<Tab>"
+                  let g:UltiSnipsJumpForwardTrigger="<Tab>"
+                  let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
                 ]])},
+              { 'honza/vim-snippets' },
             },
             config = function ()
               require'modules.plugin.lspconfig'
             end
+
     })
 
 
@@ -219,10 +222,12 @@ return require('packer').startup(function()
                   vim.cmd([[
                     nnoremap <silent> <leader>oo :FloatermToggle<CR>
                     nnoremap <silent> <leader>ot :FloatermToggle<CR>
+
+                    nnoremap <silent> <C-e><C-e> :FloatermToggle<CR>
+                    tnoremap <silent> <C-e><C-e> <C-\><C-n>:FloatermToggle<CR>
+
                     nnoremap <silent> <leader>or :FloatermNew ranger<CR>
                     nnoremap <silent> <leader>Gl :FloatermNew lazygit<CR>
-                   "nnoremap <silent> <leader><leader><Esc> :FloatermToggle<cr>
-                   "tnoremap <silent> <leader><Esc> <C-\><C-n>:FloatermToggle<cr>
                   ]])
                 end
               },

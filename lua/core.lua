@@ -22,7 +22,7 @@ local dirs = vim.fn.expand
         dirs'~/Dropbox',                  -- Dropbox
         dirs'~/Dropbox/sigil',            -- Sigil
         dirs'~/Dropbox/vault',            -- OrgMode
-        dirs'/etc/nixos',            -- OrgMode
+        dirs'/etc/nixos',                 -- NixOS
       },
 
       dotfiles  = '~/Dropbox/codex',
@@ -34,8 +34,11 @@ local dirs = vim.fn.expand
       orgroam   = '~/Dropbox/vault/roam',
 
       pictures  = '~/Pictures',
+      nixos     = '/etc/nixos',
 
     } --------------------------------------------------------------- [ KM ] ---
+
+--  LANG:
 
 --  KEYMAP:
 
@@ -58,7 +61,7 @@ local dirs = vim.fn.expand
 --  PLUGINS  : Keymap for Plugins
 
         'packer',                     -- Packer plugins below
-        'dashboard',
+        'dashboard',                  -- Dashboard ( spc od )
         'telescope',                  -- Seek the moon! [telescope]
         'nvimfzf',                    -- Fuzzy finding your mess [fzf-lua]
         'commentary',                 -- Commenting lines [tpope]
@@ -98,6 +101,7 @@ local dirs = vim.fn.expand
         -- Colorschemes
         { 'srcery-colors/srcery-vim' },
         { 'arcticicestudio/nord-vim' },
+
         -- Telescope
         -- { 'tamago324/telescope-openbrowser.nvim' },
         -- { 'nvim-telescope/telescope-project.nvim' },

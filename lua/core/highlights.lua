@@ -13,6 +13,7 @@ local d_grey = theme.d_grey
 local black  = theme.black
 local white  = theme.white
 local purple = theme.purple
+local neovide = '#101010'
 
 local function fg(group, color)
   cmd("au ColorScheme * hi " .. group .. " guifg=" .. color) end
@@ -53,7 +54,10 @@ if config.highlights.transparency then
   bg ( 'SignColumn' , none )
   bg ( 'NormalNC'   , none )
   bg ( 'MsgArea'    , none )
+  bg ( 'Folded'     , none )
   bg ( 'EndOfBuffer', none )
+
+  fg ( 'Folded'     , '#707070' )
 
 else
 

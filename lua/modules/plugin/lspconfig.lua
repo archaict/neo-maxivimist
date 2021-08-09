@@ -1,5 +1,4 @@
 -- Install LSP
-
 local nvim_lsp = require('lspconfig')
 
 local on_attach = function(client, bufnr)
@@ -34,11 +33,11 @@ local on_attach = function(client, bufnr)
 end
 
 local servers = {
-  "pylsp",
   "bashls",
-  "tsserver",
-  "sumneko_lua",
-  "yamlls"
+  "pyright",
+  "yamlls",
+  "vimls",
+  "rnix",
 }
 
 for _, lsp in ipairs(servers) do
@@ -47,38 +46,59 @@ for _, lsp in ipairs(servers) do
     flags = { debounce_text_changes = 150 }}
 end
 
-USER = vim.fn.expand('$USER')
-local sumneko_root_path = '/home/'.. USER ..'.local/share/nvim/lspinstall/lua'
-local sumneko_binary ='/home/'.. USER ..'/.local/share/nvim/lspinstall/lua/sumneko-lua-language-server'
-
-local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
-
-require'lspconfig'.sumneko_lua.setup {
-  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
-  settings = {
-    Lua = {
-      runtime     = { version = 'LuaJIT',path = runtime_path },
-
-      diagnostics = {
-        globals = { "hs", "vim", "it", "describe", "before_each", "after_each" },
-        disable = {
-          "lowercase-global",
-          "undefined-global",
-          "unused-local",
-          "unused-vararg",
-          "trailing-space"
-        }
-      },
-
-      workspace   = { library = vim.api.nvim_get_runtime_file("", true) },
-      telemetry   = { enable = false },
+require'modules.plugin.lang.lang-lua'
+require('formatter').setup({
+  logging = false,
+  filetype = {
+    nix = {
+       function()
+          return {
+            exe = "nixfmt",
+            stdin = true
+          }
+        end
     },
-      workspace   = { library = {
-          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-          [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
+    javascript = {
+        -- prettier
+       function()
+          return {
+            exe = "prettier",
+            args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), '--single-quote'},
+            stdin = true
+          }
+        end
+    },
+    rust = {
+      -- Rustfmt
+      function()
+        return {
+          exe = "rustfmt",
+          args = {"--emit=stdout"},
+          stdin = true
         }
-      }
-  },
-}
+      end
+    },
+    lua = {
+        -- luafmt
+        function()
+          return {
+            exe = "luaformatter",
+            -- args = {"--indent-count", 2, "--stdin"},
+            stdin = true
+          }
+        end
+    },
+    cpp = {
+        -- clang-format
+       function()
+          return {
+            exe = "clang-format",
+            args = {"--assume-filename", vim.api.nvim_buf_get_name(0)},
+            stdin = true,
+            cwd = vim.fn.expand('%:p:h')  -- Run clang-format in cwd of the file.
+          }
+        end
+    }
+  }
+})
+

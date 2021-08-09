@@ -85,5 +85,5 @@ return function()
     require('nvim-tree').find_file(true)
   end
 
-  cmd([[au BufEnter,BufWinEnter,WinEnter,CmdwinEnter * if bufname('%') == "NvimTree"  | set laststatus=0 | else | set laststatus=2 | endif]])
+  -- cmd([[au BufEnter,BufWinEnter,WinEnter,CmdwinEnter * if bufname('%') == "NvimTree"  | set laststatus=0 | else | set laststatus=2 | endif]])
 end

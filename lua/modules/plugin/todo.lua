@@ -11,6 +11,7 @@ local color = require('colors.ayu').ayu
       DONE  = { icon = " ", color = color.grey   },
       DESC  = { icon = "ﴬ ", color = color.green  },
       HELP  = { icon = " ", color = color.purple },
+      LANG  = { icon = "ﴬ ", color = color.purple },
       FILE  = { icon = "廓", color = color.yellow },
       SECT  = { icon = " ", color = color.yellow },
       PACK  = { icon = "廓", color = color.blue  , alt = { 'PACKER' ,'PLUG' ,'PLUGIN' ,'PLUGINS' }},
