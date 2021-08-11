@@ -1,6 +1,7 @@
 --  FILE  : Core Lua
 --  AUTH  : Archaict
 --  NOTE  : The Opinionated Configuration file
+--  NOTE  : The Big fjords vex quick waltz nymph
 
 local M = {}
 local codex = M
@@ -25,7 +26,7 @@ local dirs = vim.fn.expand
         dirs'/etc/nixos',                 -- NixOS
       },
 
-      dotfiles  = '~/Dropbox/codex',
+      dotfiles  = '/etc/nixos/codex',
       dotconfig = '~/.config',
       vimconfig = '~/.config/nvim',
 

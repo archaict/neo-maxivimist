@@ -1,0 +1,24 @@
+snippet meta "meta for dependencies"
+{ config, lib, pkgs, ... }:
+
+endsnippet
+
+snippet nixconf "configuration skel"
+{
+  ${1:nix-configuration}
+}
+endsnippet
+
+snippet nix-skel "skeleton"
+{ config, lib, pkgs, ... }:
+
+{
+  ${1:nix-configuration}
+}
+endsnippet
+
+snippet imps "import stuff"
+imports = [
+	${1:path-to-dir}
+];
+endsnippet

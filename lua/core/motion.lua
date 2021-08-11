@@ -71,12 +71,14 @@ if config.modules.leader then
         a = { "Find All Files"},
         W = { "search Pictures" },
         w = { "Set Wallpaper" },
-        v = { "Vim Config" },
-        p = { "Vim Config" },
+        v = { "Neovim Config" },
+        p = { "Neovim Config" },
         d = { "Open Personal DotFiles" },
         x = { "Search Packer" };
         s = { "Find Snippets" };
         g = { "Search in Project" };
+        n = { "NixOS: search project" },
+        -- n = { " " };
       },
 
 
@@ -128,6 +130,7 @@ if config.modules.leader then
 
         n = { "NixOS: configuration.nix" },
         h = { "NixOS: home.nix" },
+        f = { "NixOS: search project" },
       },
 
 
@@ -164,7 +167,8 @@ if config.modules.leader then
 
       r = { -- | RELS | Need some refreshers
         name = "Reload Neovim",
-        r = { "Reload buffer" };
+        r = { "Reload file" };
+        e = { "Refresh buffer" };
       },
 
 
@@ -175,13 +179,6 @@ if config.modules.leader then
         b = { "Search: Buffer" };
         p = { "Search: Project" };
         P = { "Search in Project" };
-      },
-
-
-      S = { -- | SRCE | Source of your research
-        name = "Source",
-        S = { ":source %<CR>"                       , "Source current file" };
-        P = { ":source ~/.config/nvim/lua/plugins.lua<CR>", "Source Plugins" };
       },
 
 
@@ -205,7 +202,7 @@ if config.modules.leader then
 
       v = { -- | VLUG | (V)im, pack your stuff in or out?
         name = "Plugins",
-        t = { "Vim: Todo" };
+        t = { "Neovim: Todo" };
       },
 
 

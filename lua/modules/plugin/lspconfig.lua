@@ -47,6 +47,7 @@ for _, lsp in ipairs(servers) do
 end
 
 require'modules.plugin.lang.lang-lua'
+
 require('formatter').setup({
   logging = false,
   filetype = {

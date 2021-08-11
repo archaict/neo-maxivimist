@@ -274,6 +274,7 @@ function K.help()
  nmap ('<leader>he', ':help ')
  nmap ('<leader>ho', ':help options<CR>')
  nmap ('<leader>rr', ':so %<CR>')
+ nmap ('<leader>re', ':e<CR>')
 
 end
 -- }}}
@@ -460,9 +461,10 @@ end
 -- [ Nixos ] {{{
 function K.nixos()
   nmap ( '<leader>nf',':silent! Nixconfig<CR>' )
+  nmap ( '<leader>fn',':silent! Nixconfig<CR>' )
   nmap ( '<leader>nn',':silent e /etc/nixos/configuration.nix<cr>' )
   nmap ( '<leader>nh',':silent e /etc/nixos/home.nix<cr>' )
-  nmap ( '<leader>nc',':silent e /etc/nixos/core/programs/corepkgs.nix<cr>' )
+  nmap ( '<leader>nc',':silent e /etc/nixos/core/packages/default.nix<cr>' )
   nmap ( '<leader>nF',':silent e /etc/nixos/flake.nix<cr>' )
 end
 -- }}}

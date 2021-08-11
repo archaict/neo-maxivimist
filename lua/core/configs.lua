@@ -114,6 +114,8 @@ cmd "filetype plugin indent on"
 cmd "set iskeyword+=-"
 cmd "set inccommand=split"
 
+-----------------------------------------------------------------------------}}}
+-- [ Abbreviation ] {{{
 abbrev "Q q"
 abbrev "W w"
 abbrev "q1 q!"
@@ -125,10 +127,9 @@ abbrev "wQ wq"
 abbrev "WQ wq"
 abbrev "wqa1 wqa!"
 abbrev 'Wqa wqa!'
-abbrev 'qa qa!'
+-- abbrev 'qa qa!'
 abbrev 'wqa wqa!'
-
------------------------------------------------------------------------------}}}
+--}}}
 -- [ Neovide ] {{{
 
 cmd("let g:neovide_cursor_vfx_mode = 'railgun'") -- neovide
