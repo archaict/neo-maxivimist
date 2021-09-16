@@ -38,7 +38,7 @@ end
 
 -- [ Highlights ] ---------------------------------------
 
-bg ( 'CursorLine', black )
+-- bg ( 'CursorLine', black )
 bg ( 'ColorColumn', d_grey )
 
 fg_bg ( 'Tabline     gui=none', '#909090', '#14191F' )
@@ -67,6 +67,7 @@ else
   bg ( 'NormalNC'   , '#0F1419' )
   bg ( 'MsgArea'    , '#0F1419' )
   bg ( 'EndOfBuffer', '#0F1419' )
+  bg ( 'FloatermBorder', '#0F1419' )
 
 end
 

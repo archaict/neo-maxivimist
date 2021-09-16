@@ -184,6 +184,7 @@ components.mid.active[5] = {
 
 components.right.active[1] = {
   provider = function()
+      -- return 'Archaict'
       return '%{battery#component()}'
   end,
 

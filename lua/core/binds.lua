@@ -57,8 +57,8 @@ function K.essentials()
   -- Escape Sequence
 ['<C-U>'] = '<C-G>u<C-U>',
        jk = '<ESC>',
-       kj = '<ESC>',
-       jj = '<ESC>',
+       -- kj = '<ESC>',
+       -- jj = '<ESC>',
   }
 
 for k,v in pairs(i) do vim.api.nvim_set_keymap( 'i', k, v, opts ) end end
@@ -421,6 +421,18 @@ function K.floaterm()
   nmap ('<leader>.', ":FloatermNew ranger<CR>" )
   nmap ('<leader>oo', TFLOAT .. "<cr>" )
   nmap ('<leader>og', TFLOAT .. "lazygit<CR>" )
+  nmap ('<leader>.', ":FloatermNew ranger<CR>" )
+
+  vim.cmd([[
+    nnoremap <silent> <leader>oo :FloatermToggle<CR>
+    nnoremap <silent> <leader>ot :FloatermToggle<CR>
+
+    nnoremap <silent> <C-e><C-e> :FloatermToggle<CR>
+    tnoremap <silent> <C-e><C-e> <C-\><C-n>:FloatermToggle<CR>:set laststatus=2<CR>
+
+    nnoremap <silent> <leader>or :FloatermNew ranger<CR>
+    nnoremap <silent> <leader>Gl :FloatermNew lazygit<CR>
+  ]])
 
 end
 -- }}}
@@ -462,10 +474,10 @@ end
 function K.nixos()
   nmap ( '<leader>nf',':silent! Nixconfig<CR>' )
   nmap ( '<leader>fn',':silent! Nixconfig<CR>' )
-  nmap ( '<leader>nn',':silent e /etc/nixos/configuration.nix<cr>' )
-  nmap ( '<leader>nh',':silent e /etc/nixos/home.nix<cr>' )
-  nmap ( '<leader>nc',':silent e /etc/nixos/core/packages/default.nix<cr>' )
-  nmap ( '<leader>nF',':silent e /etc/nixos/flake.nix<cr>' )
+  nmap ( '<leader>nn',':silent! e /etc/nixos/configuration.nix<cr>' )
+  nmap ( '<leader>nh',':silent! e /etc/nixos/home.nix<cr>' )
+  nmap ( '<leader>nc',':silent! e /etc/nixos/core/packages/default.nix<cr>' )
+  nmap ( '<leader>nF',':silent! e /etc/nixos/flake.nix<cr>' )
 end
 -- }}}
 

@@ -29,9 +29,9 @@ o.completeopt  = "menuone,noselect"
 
 o.mouse = "a"
 g.colors_name = core.colorscheme
-o.background = "dark"
+o.background = core.background
 o.termguicolors = true
-o.guifont = "Iosevka Nerd Font:h16:b"
+o.guifont = core.guifont
 
 o.updatetime = 300
 o.timeout = true
@@ -85,7 +85,7 @@ o.showcmd = true
 -----------------------------------------------------------------------------}}}
 -- [ Management ] {{{
 
-o.shell = '/usr/bin/env zsh'
+o.shell = core.shell
 o.ttyfast = true
 o.ttimeout = true
 o.ttimeoutlen = 50
@@ -116,19 +116,19 @@ cmd "set inccommand=split"
 
 -----------------------------------------------------------------------------}}}
 -- [ Abbreviation ] {{{
-abbrev "Q q"
-abbrev "W w"
-abbrev "q1 q!"
-abbrev 'Qa qa!'
-abbrev 'qa1 qa!'
-abbrev 'q w<bar>bd!'
-abbrev "Wq wq"
-abbrev "wQ wq"
-abbrev "WQ wq"
-abbrev "wqa1 wqa!"
-abbrev 'Wqa wqa!'
--- abbrev 'qa qa!'
-abbrev 'wqa wqa!'
+-- abbrev "Q q"
+-- abbrev "W w"
+-- abbrev "q1 q!"
+-- abbrev 'Qa qa!'
+-- abbrev 'qa1 qa!'
+-- abbrev 'q w<bar>bd!'
+-- abbrev "Wq wq"
+-- abbrev "wQ wq"
+-- abbrev "WQ wq"
+-- abbrev "wqa1 wqa!"
+-- abbrev 'Wqa wqa!'
+-- -- abbrev 'qa qa!'
+-- abbrev 'wqa wqa!'
 --}}}
 -- [ Neovide ] {{{
 

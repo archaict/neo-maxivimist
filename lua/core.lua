@@ -12,6 +12,9 @@ local dirs = vim.fn.expand
     codex.core= {
 
       colorscheme = 'ayu',
+      background  = 'dark',
+      guifont = "Iosevka Nerd Font:h16:b",
+      shell = '/usr/bin/env bash',
 
     } --------------------------------------------------------------- [ KM ] ---
 

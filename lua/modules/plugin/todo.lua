@@ -30,6 +30,7 @@ local color = require('colors.ayu').ayu
       THEMES = { icon = " ", color = color.yellow},
       MODULE = { icon = " ", color = color.blue},
       KEYMAP = { icon = " ", color = color.green},
+      WRITER = { icon = " ", color = color.yellow},
     },
     merge_keywords = true,
     highlight = {

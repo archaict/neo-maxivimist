@@ -51,7 +51,7 @@ return require('packer').startup(function()
             requires = {
               { 'kabouzeid/nvim-lspinstall' },
               { 'mhartington/formatter.nvim' },
-              { 'tjdevries/astronauta.nvim' },
+              -- { 'tjdevries/astronauta.nvim' },
               { 'hrsh7th/nvim-compe'                , config = require'modules.plugin.compe' },
               { 'mattn/emmet-vim' },
               { 'glepnir/lspsaga.nvim',
@@ -188,7 +188,7 @@ return require('packer').startup(function()
 
 
     -- use ({  -- The Catcher
-    --         -- separator
+    --         -- separating connection
 
     --         'AckslD/nvim-revJ.lua',
     --         requires = { 'kana/vim-textobj-user', 'sgur/vim-textobj-parameter' },
@@ -214,21 +214,13 @@ return require('packer').startup(function()
               { 'kyazdani42/nvim-tree.lua'        , config = require'modules.plugin.nvimtree' },
               { 'voldikss/vim-floaterm',
                 config = function()
+                  vim.g.floaterm_shell = 'fish'
                   vim.g.floaterm_opener = 'drop'
                   vim.g.floaterm_autoclose = 2
-                  vim.g.floaterm_wintype = 'split'
-                  vim.g.floaterm_height = 0.3
-                  vim.g.floaterm_width = 80
-                  vim.cmd([[
-                    nnoremap <silent> <leader>oo :FloatermToggle<CR>
-                    nnoremap <silent> <leader>ot :FloatermToggle<CR>
-
-                    nnoremap <silent> <C-e><C-e> :FloatermToggle<CR>
-                    tnoremap <silent> <C-e><C-e> <C-\><C-n>:FloatermToggle<CR>
-
-                    nnoremap <silent> <leader>or :FloatermNew ranger<CR>
-                    nnoremap <silent> <leader>Gl :FloatermNew lazygit<CR>
-                  ]])
+                  vim.g.floaterm_wintype = 'float'
+                  vim.g.floaterm_height = 0.8
+                  vim.g.floaterm_width = 180
+                  vim.cmd'hi FloatermBorder guibg=none'
                 end
               },
               { 'phaazon/hop.nvim' },

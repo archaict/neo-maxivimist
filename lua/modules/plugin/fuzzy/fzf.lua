@@ -294,6 +294,15 @@ function fzf_wallpaper()
   })
 end
 
+function fzf_terminal()
+  require('fzf-lua').files({
+    prompt    = 'Terminal Command » ',
+    actions = {
+      ["default"]  = function(selected) vim.cmd('!' .. selected[2]) end
+    },
+  })
+end
+
 function fzf_autowallpaper()
   local fzf = require("fzf").fzf
   local action = require "fzf.actions".action
